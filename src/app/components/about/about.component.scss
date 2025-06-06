@@ -1,0 +1,281 @@
+:root {
+  --font: "Kodchasan";
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: clamp(15px, 2vw, 25px);
+  padding: 0 clamp(1rem, 4vw, 3.7rem);
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+.skills-container {
+  position: relative;
+  width: 70%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    flex-direction: column;
+    padding: 1.5rem;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 0rem;
+  }
+}
+
+.skill-title {
+  font-family: "Kodchasan";
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: bold;
+  color: white;
+  margin-right: clamp(15px, 2vw, 30px);
+  white-space: nowrap;
+  padding-top: 0.5rem; // Align with first row of logos
+
+  @media (max-width: 768px) {
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+    font-size: 2rem;
+    white-space: normal;
+    padding-top: 0;
+  }
+}
+
+.skill-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1.2rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+  }
+}
+
+.skill-logo-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+
+  // First row (9 items)
+  &:first-child {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  // Second row (7 items)
+  &:last-child {
+    justify-content: flex-start;
+    gap: 1.8rem;
+    padding-left: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    justify-items: center;
+
+    &:first-child,
+    &:last-child {
+      justify-content: center;
+      padding-left: 0;
+      gap: 1rem;
+    }
+  }
+}
+@mixin image-style($background-url, $z-index: 6, $background-size: cover) {
+  height: clamp(40px, 5vw, 60px);
+  width: clamp(40px, 5vw, 60px);
+  cursor: pointer;
+  background: url($background-url) no-repeat center;
+  background-size: $background-size;
+  z-index: $z-index;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.img {
+  @include image-style("/assets/images/html.png", 2, 100% 100%);
+  border-radius: 20px;
+}
+
+.pic {
+  @include image-style("/assets/images/CSS.png", 3);
+}
+
+@for $i from 2 through 12 {
+  .img-#{$i} {
+    @include image-style(
+      "/assets/images/" +
+        if(
+          $i == 2,
+          "js",
+          if(
+            $i == 3,
+            "typescript",
+            if(
+              $i == 4,
+              "Angular",
+              if(
+                $i == 5,
+                "java",
+                if(
+                  $i == 6,
+                  "asp",
+                  if(
+                    $i == 7,
+                    "mysql",
+                    if(
+                      $i == 8,
+                      "mongodb",
+                      if(
+                        $i == 9,
+                        "aws",
+                        if($i == 10, "github", if($i == 11, "figma", "canva"))
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ) + ".png"
+    );
+  }
+}
+
+@for $i from 2 through 3 {
+  .pic-#{$i} {
+    @include image-style(
+      "/assets/images/" + if($i == 2, "nodejs", "csharp") + ".png"
+    );
+  }
+}
+
+.project-container {
+  position: relative;
+  width: 30%; // Takes 30% of space on desktop
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    min-height: 180px;
+    aspect-ratio: 16/9;
+    margin-right: 1rem;
+  }
+}
+
+.project-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/images/projects.png") no-repeat center;
+  background-size: contain;
+  background-position: center center;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  transition: all 0.3s ease-in-out;
+  opacity: 0.8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    background-size: cover;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.project-title {
+  position: absolute;
+  bottom: clamp(10px, 1.5vw, 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Kodchasan";
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: bold;
+  color: white;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.redirect {
+  position: absolute;
+  bottom: clamp(10px, 1.5vw, 20px);
+  right: clamp(10px, 1.5vw, 20px);
+  z-index: 10;
+  transition: transform 0.2s ease-in-out;
+
+  @media (max-width: 768px) {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+.redirect:hover {
+  transform: scale(1.1);
+}
+
+.resume-icon {
+  width: clamp(20px, 2.5vw, 30px);
+  height: clamp(20px, 2.5vw, 30px);
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+}

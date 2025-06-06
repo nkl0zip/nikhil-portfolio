@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="logo">Nikhil</div>
+
+    <!-- Desktop Menu -->
+    <div class="nav-links desktop-only">
+      <button class="nav-button" (click)="scrollTo('top')">Home</button>
+      <button class="nav-button" (click)="scrollTo('about')">About</button>
+      <a href="/assets/Nikhil_Resume.pdf" target="_blank" class="nav-button">
+        Resume
+      </a>
+      <button class="nav-button" (click)="scrollTo('socials')">Socials</button>
+    </div>
+
+    <script>
+      document
+        .getElementById("resumeButton")
+        .addEventListener("click", function () {
+          window.open("/assets/Nikhil_Resume.pdf", "_blank");
+        });
+    </script>
+
+    <!-- CTA Button (Let’s talk) -->
+    <div class="nav-cta">
+      <a
+        href="https://www.linkedin.com/in/nikhil-patra-b81906244"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button class="cta-button">Let's talk</button>
+      </a>
+    </div>
+  </div>
+</nav>
