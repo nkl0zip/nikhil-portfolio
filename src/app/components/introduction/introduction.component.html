@@ -1,4 +1,8 @@
-<div class="main-container">
+<div
+  class="main-container"
+  #introSection
+  [ngClass]="{ 'fade-in-up show': show }"
+>
   <!-- Profile Picture Box -->
   <div class="intro-container">
     <div class="profile">

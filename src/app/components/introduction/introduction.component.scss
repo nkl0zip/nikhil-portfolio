@@ -16,11 +16,20 @@
   padding: 0 clamp(2rem, 5vw, 3rem);
   justify-content: center;
 
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.2rem;
     padding: 0 1rem;
   }
+}
+
+.main-container.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .intro-container {
@@ -215,4 +224,15 @@
     font-size: 16px;
     width: calc(100% - 2rem);
   }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-up.show {
+  opacity: 1;
+  transform: translateY(0);
 }

@@ -1,5 +1,10 @@
-<div class="main-container">
+<div
+  class="main-container"
+  #aboutSection
+  [ngClass]="{ 'fade-in-up show': show }"
+>
   <!-- Skills Container -->
+
   <div class="skills-container">
     <span class="skill-title">Skills</span>
     <div class="skill-box">
