@@ -27,6 +27,14 @@
     padding: 0 1rem;
     gap: 1.2rem;
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-top: 0.2rem;
+    justify-content: center;
+    padding: 0 1rem;
+    gap: 1.2rem;
+  }
 }
 
 .main-container.show {
@@ -46,13 +54,27 @@
   padding: 1.5rem;
 
   @media (max-width: 768px) {
-    width: 90%;
+    width: 93%;
     flex-direction: column;
     padding: 1.5rem;
     justify-content: center;
     align-items: center;
 
     margin-left: 0rem;
+  }
+
+  @media (max-width: 568px) {
+    width: 90%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 468px) {
+    width: 86%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

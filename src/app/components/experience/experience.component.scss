@@ -36,13 +36,22 @@
 
   @media (max-width: 992px) {
     gap: 1.2rem;
-    width: 95%;
+    width: 96%;
     margin-right: 2rem;
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
+    width: 95%;
     padding: 0 1rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 568px) {
+    flex-direction: column;
+    padding: 0 1rem;
+    width: 93%;
+    justify-content: center;
   }
 }
 
