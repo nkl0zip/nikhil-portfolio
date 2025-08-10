@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IntroductionComponent } from './components/introduction/introduction.component';
 import { AboutComponent } from './components/about/about.component';
 import { DetailsComponent } from './components/details/details.component';
+import { ExperienceComponent } from './components/experience/experience.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +22,11 @@ import { DetailsComponent } from './components/details/details.component';
     ProjectsComponent,
     IntroductionComponent,
     AboutComponent,
-    DetailsComponent
+    DetailsComponent,
+    ExperienceComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

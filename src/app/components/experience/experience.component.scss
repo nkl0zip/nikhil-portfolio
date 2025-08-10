@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap");
+
+:root {
+  --font: "Kodchasan";
+
+  --text: #ffffff;
+  --muted: #a7a7a7;
+
+  /* Match details section gradient & feel */
+  --card-gradient: linear-gradient(45deg, #1d1d1d, #111111);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --radius: 20px;
+}
+
+/* Container aligns with details-section look */
+.experience-section {
+  position: relative;
+  width: 100%;
+  max-width: 1540px;
+  margin: 1rem auto 0 auto;
+  padding: 0 clamp(1rem, 5vw, 3.8rem);
+  padding-top: 1.5rem;
+  display: flex;
+  gap: clamp(20px, 2.5vw, 25px);
+  box-sizing: border-box;
+
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 992px) {
+    gap: 1.2rem;
+    width: 95%;
+    margin-right: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+}
+
+/* Shared card styling – same vibe as details boxes */
+.card {
+  position: relative;
+  background: var(--card-gradient);
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  backdrop-filter: blur(8px);
+}
+
+/* Layout: 65/35 split on desktop, stack on mobile */
+.exp-card {
+  flex: 1 1 65%;
+  min-width: 320px;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    flex-basis: 60%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: unset;
+  }
+}
+.certs-card {
+  flex: 1 1 35%;
+  min-width: 300px;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    flex-basis: 40%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Titles */
+.card-title {
+  font-family: Kodchasan;
+  color: var(--text);
+  font-size: clamp(20px, 2.3vw, 24px);
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+/* Experience items */
+.exp-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 50px 1fr;
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 360px) {
+    grid-template-columns: 45px 1fr;
+    gap: 0.6rem;
+  }
+}
+
+.exp-avatar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.avatar-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (max-width: 360px) {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.exp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: Kodchasan;
+  color: var(--text);
+  letter-spacing: 0.2px;
+}
+
+.exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.exp-company {
+  font-size: clamp(16px, 1.7vw, 18px);
+  font-weight: 700;
+  margin: 0;
+}
+
+.exp-dates {
+  color: #a7a7a7;
+  font-weight: 700;
+  font-size: clamp(12px, 1.3vw, 14px);
+}
+
+.exp-role {
+  color: #a7a7a7;
+  font-size: clamp(14px, 1.4vw, 16px);
+  font-weight: 500;
+  margin: 0.15rem 0 0.3rem 0;
+}
+
+.exp-bullets {
+  margin: 0.2rem 0 0 0;
+  padding-left: 1.2rem;
+  color: #a7a7a7;
+  font-weight: 500;
+  font-size: clamp(12px, 1.2vw, 14px);
+  line-height: 1.6;
+
+  li {
+    margin-top: 0.25rem;
+    font-weight: 300;
+  }
+
+  @media (max-width: 360px) {
+    padding-left: 1rem;
+  }
+}
+
+/* Certifications */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.12;
+  pointer-events: none;
+  border-radius: var(--radius);
+}
+
+.cert-list {
+  list-style: none;
+  padding: 0.25rem 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 1; /* above bg */
+}
+
+.cert-item {
+  display: grid;
+  grid-template-columns: clamp(18px, 2.2vw, 24px) 1fr;
+  align-items: start;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px dashed var(--card-border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 0.75rem;
+  }
+
+  @media (max-width: 360px) {
+    gap: 0.5rem;
+    grid-template-columns: 18px 1fr;
+  }
+}
+
+.cert-icon {
+  object-fit: contain;
+  display: block;
+
+  @media (max-width: 992px) {
+    padding-right: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    padding-right: 2rem;
+  }
+}
+
+.cert-lines {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+}
+
+.cert-name {
+  color: var(--text, #fff);
+  font-family: var(--font, "Kodchasan", sans-serif);
+  font-size: clamp(14px, 1.6vw, 16px);
+  font-weight: 700;
+}
+
+.cert-issuer {
+  color: var(--muted, #a7a7a7);
+  font-family: var(--font, "Kodchasan", sans-serif);
+  font-size: clamp(12px, 1.3vw, 13px);
+  font-weight: 700;
+}
