@@ -12,6 +12,10 @@ import { IntroductionComponent } from './components/introduction/introduction.co
 import { AboutComponent } from './components/about/about.component';
 import { DetailsComponent } from './components/details/details.component';
 import { ExperienceComponent } from './components/experience/experience.component';
+import { ProjectsHeroComponent } from './components/projects-hero/projects-hero.component';
+import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
+import { ProjectsLeftCardComponent } from './components/projects-left-card/projects-left-card.component';
+import { ProjectsRightCardComponent } from './components/projects-right-card/projects-right-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import { ExperienceComponent } from './components/experience/experience.componen
     AboutComponent,
     DetailsComponent,
     ExperienceComponent,
+    ProjectsHeroComponent,
+    ProjectsCardComponent,
+    ProjectsLeftCardComponent,
+    ProjectsRightCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

@@ -5,8 +5,25 @@
 
     <!-- Desktop Menu -->
     <div class="nav-links desktop-only">
-      <button class="nav-button" (click)="scrollTo('top')">Home</button>
-      <button class="nav-button" (click)="scrollTo('about')">About</button>
+      <button
+        class="nav-button"
+        type="button"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="scrollTo('top')"
+      >
+        Home
+      </button>
+      <button
+        class="nav-button"
+        type="button"
+        routerLink="/projects"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Projects
+      </button>
       <a href="/assets/Nikhil_Resume.pdf" target="_blank" class="nav-button">
         Resume
       </a>

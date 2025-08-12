@@ -33,12 +33,18 @@
   </div>
 
   <!-- Project Container -->
-  <div class="project-container">
+  <div
+    class="project-container"
+    routerLink="/projects"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <div class="project-image" title="overview"></div>
     <div class="project-title">Projects</div>
     <a
-      href="https://github.com/nkl0zip"
-      target="_blank"
+      routerLink="/projects"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
       class="redirect"
       title="Go to Projects"
     >

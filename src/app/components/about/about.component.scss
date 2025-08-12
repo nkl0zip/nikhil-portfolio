@@ -21,10 +21,11 @@
   transform: translateY(50px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (max-width: 1180px) {
+    flex-direction: row;
+    width: 98%;
+    justify-content: center;
     margin-top: 0.2rem;
-    padding: 0 1rem;
     gap: 1.2rem;
   }
 

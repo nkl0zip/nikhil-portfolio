@@ -1,0 +1,22 @@
+<div
+  class="project-card"
+  role="button"
+  tabindex="0"
+  (click)="openLink()"
+  [attr.aria-label]="title"
+>
+  <div class="image-wrap">
+    <div
+      class="img"
+      [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
+    ></div>
+  </div>
+
+  <div class="details">
+    <span class="text">{{ featuredLabel }}</span>
+    <span class="text-2">{{ title }}</span>
+    <span class="text-3">
+      {{ description }}
+    </span>
+  </div>
+</div>

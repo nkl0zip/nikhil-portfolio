@@ -49,10 +49,10 @@
   &:hover {
     color: #ffffff;
   }
-}
 
-.nav-button:first-child {
-  color: #ffffff;
+  &.active {
+    color: #ffffff; /* Highlight active route */
+  }
 }
 
 .nav-cta .cta-button {
