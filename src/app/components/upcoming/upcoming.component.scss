@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap");
+
+:root {
+  --text: #ffffff;
+
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --radius: 20px;
+
+  --accent: #6a84e2; /* subtle blue accent used across your site */
+  --glass-spot: radial-gradient(
+    24% 24% at 12% 18%,
+    #492c65 0%,
+    #6ebff439 22.4%,
+    #4690d400 100%
+  );
+}
+
+/* Section shell (matches your sections spacing/animation) */
+.upcoming-section {
+  width: 100%;
+  max-width: 1540px;
+  margin: 1.5rem auto 0 auto;
+  padding: 0 clamp(1rem, 5vw, 3.8rem);
+  box-sizing: border-box;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin: 0 0 clamp(12px, 2vw, 18px) 0;
+
+  .title {
+    font-family: Kodchasan;
+    color: var(--text);
+    font-weight: 700;
+    font-size: clamp(22px, 2.6vw, 28px);
+    margin: 0 0 6px 0;
+  }
+
+  .subtitle {
+    font-family: Kodchasan;
+    color: #a7a7a7;
+    font-weight: 600;
+    font-size: clamp(14px, 1.8vw, 16px);
+    margin: 0 auto;
+    max-width: 740px;
+    line-height: 1.5;
+  }
+}
+
+/* Cards grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: clamp(14px, 2.2vw, 22px);
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+  }
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.card {
+  position: relative;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  padding: clamp(14px, 2.2vw, 18px);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vw, 12px);
+  min-height: 190px;
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      24% 24% at 12% 18%,
+      #492c65 0%,
+      #6ebff439 22.4%,
+      #4690d400 100%
+    );
+    opacity: 0.15;
+    pointer-events: none;
+  }
+}
+
+/* Card header row */
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  font-family: Kodchasan;
+  color: var(--text);
+  font-weight: 700;
+  font-size: clamp(16px, 2vw, 18px);
+  margin: 0;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .badge {
+    font-family: Kodchasan;
+    font-weight: 700;
+    font-size: clamp(11px, 1.6vw, 12px);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(4px);
+  }
+
+  .badge.status {
+    /* slight hue to hint “construction” */
+    background: rgba(106, 132, 226, 0.12);
+    border-color: rgba(106, 132, 226, 0.25);
+  }
+  .badge.eta {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* Description */
+.card-desc {
+  font-family: Kodchasan;
+  color: #a7a7a7;
+  font-weight: 600;
+  font-size: clamp(13px, 1.8vw, 14px);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+
+  .tag {
+    font-family: Kodchasan;
+    font-weight: 700;
+    font-size: 12px;
+    color: #a7a7a7;
+    padding: 6px 10px;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+  }
+}
+
+/* Under construction indicator */
+.under-construction {
+  margin-top: auto; /* stick to bottom */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6a84e2;
+    box-shadow: 0 0 10px rgba(106, 132, 226, 0.8);
+    animation: pulseDot 1.5s ease-in-out infinite;
+  }
+
+  .uc-text {
+    font-family: Kodchasan;
+    font-weight: 700;
+    color: var(--text);
+    font-size: clamp(12px, 1.7vw, 13px);
+    letter-spacing: 0.2px;
+    opacity: 0.9;
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}

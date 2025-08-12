@@ -16,6 +16,7 @@ import { ProjectsHeroComponent } from './components/projects-hero/projects-hero.
 import { ProjectsCardComponent } from './components/projects-card/projects-card.component';
 import { ProjectsLeftCardComponent } from './components/projects-left-card/projects-left-card.component';
 import { ProjectsRightCardComponent } from './components/projects-right-card/projects-right-card.component';
+import { UpcomingComponent } from './components/upcoming/upcoming.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProjectsRightCardComponent } from './components/projects-right-card/pro
     ProjectsCardComponent,
     ProjectsLeftCardComponent,
     ProjectsRightCardComponent,
+    UpcomingComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

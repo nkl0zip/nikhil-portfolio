@@ -1,0 +1,34 @@
+<section class="upcoming-section" [class.show]="true">
+  <div class="header">
+    <h2 class="title">{{ heading }}</h2>
+    <p class="subtitle">{{ subheading }}</p>
+  </div>
+
+  <div class="cards">
+    <article class="card" *ngFor="let p of items">
+      <div class="card-bg"></div>
+
+      <div class="card-top">
+        <h3 class="card-title">{{ p.title }}</h3>
+
+        <div class="badges">
+          <span class="badge status" *ngIf="p.status">{{ p.status }}</span>
+          <span class="badge eta" *ngIf="p.eta">{{ p.eta }}</span>
+        </div>
+      </div>
+
+      <p class="card-desc">
+        {{ p.description }}
+      </p>
+
+      <div class="tags" *ngIf="p.tags?.length">
+        <span class="tag" *ngFor="let t of p.tags">#{{ t }}</span>
+      </div>
+
+      <div class="under-construction">
+        <span class="dot"></span>
+        <span class="uc-text">Under construction</span>
+      </div>
+    </article>
+  </div>
+</section>
