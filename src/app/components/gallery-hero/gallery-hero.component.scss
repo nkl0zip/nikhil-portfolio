@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap");
+
+/* Main layout */
+.main-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto; /* center horizontally */
+  padding: clamp(16px, 4vw, 24px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Content group */
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Typography */
+.text {
+  font-family: Kodchasan;
+  font-weight: 600;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: #fff;
+  line-height: 1.5;
+}
+
+.text-2 {
+  font-family: Kodchasan;
+  font-weight: 700;
+  font-size: clamp(34px, 7vw, 68px);
+  color: #fff;
+  line-height: 1.15;
+}
+
+.text-3 {
+  font-family: Kodchasan;
+  font-weight: 400;
+  font-size: clamp(14px, 2.2vw, 17px);
+  color: #ffffff;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Contact button */
+.section {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(8px, 2vw, 15px) clamp(15px, 5vw, 40px);
+  background: #2d2d2d89;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+  }
+}
+
+.text-4 {
+  font-family: Kodchasan;
+  font-weight: 700;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: #fff;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .group {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .text-2 {
+    white-space: normal;
+  }
+
+  .text {
+    white-space: normal;
+  }
+}

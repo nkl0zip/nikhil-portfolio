@@ -17,6 +17,9 @@ import { ProjectsCardComponent } from './components/projects-card/projects-card.
 import { ProjectsLeftCardComponent } from './components/projects-left-card/projects-left-card.component';
 import { ProjectsRightCardComponent } from './components/projects-right-card/projects-right-card.component';
 import { UpcomingComponent } from './components/upcoming/upcoming.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { GalleryHeroComponent } from './components/gallery-hero/gallery-hero.component';
+import { GalleryPhotosComponent } from './components/gallery-photos/gallery-photos.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { UpcomingComponent } from './components/upcoming/upcoming.component';
     ProjectsLeftCardComponent,
     ProjectsRightCardComponent,
     UpcomingComponent,
+    GalleryComponent,
+    GalleryHeroComponent,
+    GalleryPhotosComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

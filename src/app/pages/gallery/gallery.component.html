@@ -1,0 +1,20 @@
+<div class="gallery-wrapper" aria-label="Gallery header section">
+  <video
+    #bgVideo
+    class="bg-video"
+    muted
+    autoplay
+    loop
+    playsinline
+    preload="metadata"
+  >
+    <source src="assets/videos/gallery.webm" type="video/webm" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div class="gallery-content">
+    <app-navbar></app-navbar>
+    <app-gallery-hero></app-gallery-hero>
+  </div>
+</div>
+<app-gallery-photos></app-gallery-photos>

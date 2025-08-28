@@ -1,0 +1,31 @@
+.gallery-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 65vh; /* fills the first screen (navbar + hero) */
+  overflow: hidden;
+  isolation: isolate; /* creates a new stacking context so -1 stays behind content */
+  background: transparent; /* graceful fallback while video loads */
+}
+
+/* Background video (scoped to wrapper only) */
+.bg-video {
+  position: absolute; /* tied to wrapper, not the whole page */
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* safely behind due to isolation */
+  pointer-events: none;
+  transform: translateZ(0); /* iOS/Safari rendering nudge */
+}
+
+/* Foreground content */
+.gallery-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  /* Optional readability overlay:
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.15));
+  */
+}
