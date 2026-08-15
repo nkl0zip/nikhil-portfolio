@@ -1,114 +1,79 @@
 @import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap");
 
-:root {
-  --font: "Kodchasan";
-
-  --text: #ffffff;
-  --muted: #a7a7a7;
-
-  /* Match details section gradient & feel */
-  --card-gradient: linear-gradient(45deg, #1d1d1d, #111111);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  --radius: 20px;
+/* ── Animation — triggered by [ngClass]="{ 'fade-in-up show': show }" ── */
+.experience-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Container aligns with details-section look */
+.experience-section.fade-in-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Row wrapper — no padding/max-width, owned by .home-content ── */
 .experience-section {
   position: relative;
   width: 100%;
-  max-width: 1540px;
-  margin: 1rem auto 0 auto;
-  padding: 0 clamp(1rem, 5vw, 3.8rem);
+  margin: 1rem auto 0;
   padding-top: 1.5rem;
   display: flex;
   gap: clamp(20px, 2.5vw, 25px);
   box-sizing: border-box;
 
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-
-  &.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 992px) {
-    gap: 1.2rem;
-    width: 96%;
-    margin-right: 2rem;
-  }
-
   @media (max-width: 768px) {
     flex-direction: column;
-    width: 95%;
-    padding: 0 1rem;
-    justify-content: center;
-  }
-
-  @media (max-width: 568px) {
-    flex-direction: column;
-    padding: 0 1rem;
-    width: 93%;
-    justify-content: center;
+    padding-top: 0.5rem;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
   }
 }
 
-/* Shared card styling – same vibe as details boxes */
+/* ── Shared card styling — same vibe as skills/education/socials boxes ── */
 .card {
   position: relative;
-  background: var(--card-gradient);
-  border-radius: var(--radius);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--card-shadow);
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   padding: clamp(1rem, 2.5vw, 1.5rem);
   backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
-/* Layout: 65/35 split on desktop, stack on mobile */
+/* ── Layout: 65/35 split ── */
 .exp-card {
   flex: 1 1 65%;
-  min-width: 320px;
-  background: linear-gradient(45deg, #1d1d1d, #111111);
-  border-radius: 20px;
-  overflow: hidden;
+  min-width: 0;
 
-  @media (max-width: 1024px) {
-    flex-basis: 60%;
-  }
   @media (max-width: 768px) {
+    flex: none;
     width: 100%;
-    min-width: unset;
   }
 }
+
 .certs-card {
   flex: 1 1 35%;
-  min-width: 300px;
-  background: linear-gradient(45deg, #1d1d1d, #111111);
-  border-radius: 20px;
-  overflow: hidden;
+  min-width: 0;
 
-  @media (max-width: 1024px) {
-    flex-basis: 40%;
-  }
   @media (max-width: 768px) {
+    flex: none;
     width: 100%;
-    min-width: unset;
   }
 }
 
-/* Titles */
+/* ── Card title ── */
 .card-title {
   font-family: Kodchasan;
-  color: var(--text);
+  color: #ffffff;
   font-size: clamp(20px, 2.3vw, 24px);
   font-weight: 700;
   margin: 0 0 1rem 0;
 }
 
-/* Experience items */
+/* ── Experience items ── */
 .exp-item {
   display: grid;
   grid-template-columns: 60px 1fr;
@@ -116,7 +81,7 @@
   padding: 0.9rem 0;
 
   &:not(:last-child) {
-    border-bottom: 1px solid var(--card-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   @media (max-width: 480px) {
@@ -135,6 +100,7 @@
   align-items: flex-start;
   justify-content: center;
 }
+
 .avatar-img {
   width: 60px;
   height: 60px;
@@ -159,8 +125,9 @@
   flex-direction: column;
   gap: 0.3rem;
   font-family: Kodchasan;
-  color: var(--text);
+  color: #ffffff;
   letter-spacing: 0.2px;
+  min-width: 0;
 }
 
 .exp-top {
@@ -208,7 +175,7 @@
   }
 }
 
-/* Certifications */
+/* ── Certifications decorative bg ── */
 .card-bg {
   position: absolute;
   inset: 0;
@@ -217,7 +184,7 @@
   background-size: 100% 100%;
   opacity: 0.12;
   pointer-events: none;
-  border-radius: var(--radius);
+  border-radius: 20px;
 }
 
 .cert-list {
@@ -228,7 +195,7 @@
   flex-direction: column;
   gap: 0.75rem;
   position: relative;
-  z-index: 1; /* above bg */
+  z-index: 1;
 }
 
 .cert-item {
@@ -239,7 +206,7 @@
   padding: 0.35rem 0;
 
   &:not(:last-child) {
-    border-bottom: 1px dashed var(--card-border, rgba(255, 255, 255, 0.08));
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
     padding-bottom: 0.75rem;
   }
 
@@ -252,32 +219,27 @@
 .cert-icon {
   object-fit: contain;
   display: block;
-
-  @media (max-width: 992px) {
-    padding-right: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    padding-right: 2rem;
-  }
+  width: 100%;
+  height: auto;
 }
 
 .cert-lines {
   display: flex;
   flex-direction: column;
-  padding-left: 2rem;
+  padding-left: 0.5rem;
+  min-width: 0;
 }
 
 .cert-name {
-  color: var(--text, #fff);
-  font-family: var(--font, "Kodchasan", sans-serif);
+  color: #ffffff;
+  font-family: Kodchasan;
   font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 700;
 }
 
 .cert-issuer {
-  color: var(--muted, #a7a7a7);
-  font-family: var(--font, "Kodchasan", sans-serif);
+  color: #a7a7a7;
+  font-family: Kodchasan;
   font-size: clamp(12px, 1.3vw, 13px);
   font-weight: 700;
 }

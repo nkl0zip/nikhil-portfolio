@@ -2,25 +2,16 @@
 
 :root {
   --text: #ffffff;
-
   --card-border: rgba(255, 255, 255, 0.08);
   --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   --radius: 20px;
-
-  --accent: #6a84e2; /* subtle blue accent used across your site */
-  --glass-spot: radial-gradient(
-    24% 24% at 12% 18%,
-    #492c65 0%,
-    #6ebff439 22.4%,
-    #4690d400 100%
-  );
+  --accent: #6a84e2;
 }
 
-/* Section shell (matches your sections spacing/animation) */
 .upcoming-section {
   width: 100%;
   max-width: 1540px;
-  margin: 1.5rem auto 0 auto;
+  margin: 1.5rem auto 0;
   padding: 0 clamp(1rem, 5vw, 3.8rem);
   box-sizing: border-box;
 
@@ -35,61 +26,60 @@
 
   @media (max-width: 768px) {
     padding: 0 1rem;
+    margin-top: 1rem;
   }
 }
 
-/* Header */
 .header {
   text-align: center;
-  margin: 0 0 clamp(12px, 2vw, 18px) 0;
+  margin: 0 0 clamp(10px, 2vw, 18px);
 
   .title {
     font-family: Kodchasan;
     color: var(--text);
     font-weight: 700;
-    font-size: clamp(22px, 2.6vw, 28px);
-    margin: 0 0 6px 0;
+    font-size: clamp(20px, 2.4vw, 28px);
+    margin: 0 0 6px;
   }
 
   .subtitle {
     font-family: Kodchasan;
     color: #a7a7a7;
     font-weight: 600;
-    font-size: clamp(14px, 1.8vw, 16px);
+    font-size: clamp(13px, 1.6vw, 16px);
     margin: 0 auto;
     max-width: 740px;
     line-height: 1.5;
   }
 }
 
-/* Cards grid */
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(260px, 1fr));
-  gap: clamp(14px, 2.2vw, 22px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 22px);
 
   @media (max-width: 1100px) {
-    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  @media (max-width: 680px) {
+
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 }
 
-/* Card */
 .card {
   position: relative;
   background: linear-gradient(45deg, #1d1d1d, #111111);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  padding: clamp(14px, 2.2vw, 18px);
+  padding: clamp(12px, 2vw, 18px);
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.5vw, 12px);
-  min-height: 190px;
+  gap: clamp(8px, 1.4vw, 12px);
+  min-height: 180px;
+  box-sizing: border-box;
 
   .card-bg {
     position: absolute;
@@ -105,12 +95,11 @@
   }
 }
 
-/* Card header row */
 .card-top {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -118,68 +107,67 @@
   font-family: Kodchasan;
   color: var(--text);
   font-weight: 700;
-  font-size: clamp(16px, 2vw, 18px);
+  font-size: clamp(15px, 1.8vw, 18px);
   margin: 0;
 }
 
 .badges {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 
   .badge {
     font-family: Kodchasan;
     font-weight: 700;
-    font-size: clamp(11px, 1.6vw, 12px);
-    padding: 6px 10px;
+    font-size: clamp(10px, 1.4vw, 12px);
+    padding: 5px 9px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text);
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(4px);
+    white-space: nowrap;
   }
 
   .badge.status {
-    /* slight hue to hint “construction” */
     background: rgba(106, 132, 226, 0.12);
     border-color: rgba(106, 132, 226, 0.25);
   }
+
   .badge.eta {
     background: rgba(255, 255, 255, 0.06);
   }
 }
 
-/* Description */
 .card-desc {
   font-family: Kodchasan;
   color: #a7a7a7;
   font-weight: 600;
-  font-size: clamp(13px, 1.8vw, 14px);
+  font-size: clamp(12px, 1.5vw, 14px);
   line-height: 1.55;
   margin: 0;
 }
 
-/* Tags */
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-top: 2px;
 
   .tag {
     font-family: Kodchasan;
     font-weight: 700;
-    font-size: 12px;
+    font-size: clamp(11px, 1.2vw, 12px);
     color: #a7a7a7;
-    padding: 6px 10px;
+    padding: 5px 9px;
     border: 1px dashed rgba(255, 255, 255, 0.08);
     border-radius: 999px;
   }
 }
 
-/* Under construction indicator */
 .under-construction {
-  margin-top: auto; /* stick to bottom */
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -187,6 +175,7 @@
   .dot {
     width: 8px;
     height: 8px;
+    flex-shrink: 0;
     border-radius: 50%;
     background: #6a84e2;
     box-shadow: 0 0 10px rgba(106, 132, 226, 0.8);
@@ -197,20 +186,13 @@
     font-family: Kodchasan;
     font-weight: 700;
     color: var(--text);
-    font-size: clamp(12px, 1.7vw, 13px);
+    font-size: clamp(11px, 1.5vw, 13px);
     letter-spacing: 0.2px;
     opacity: 0.9;
   }
 }
 
 @keyframes pulseDot {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.25);
-    opacity: 1;
-  }
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.25); opacity: 1; }
 }

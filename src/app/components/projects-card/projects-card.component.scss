@@ -2,5 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 6rem;
+  padding-top: clamp(2rem, 6vw, 6rem);
+  box-sizing: border-box;
 }

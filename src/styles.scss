@@ -36,19 +36,27 @@ $my-portfolio-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #0f0f0f; // Ensures body and html have the same dark background
+  background-color: #0f0f0f;
   color: white;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-width: 320px;
 }
 
 ::-webkit-scrollbar {

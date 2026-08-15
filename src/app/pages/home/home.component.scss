@@ -4,3 +4,18 @@
   min-height: 100%;
   width: 100%;
 }
+
+/* Single shared column that every row lives inside.
+   All horizontal padding lives HERE only — never in individual components. */
+.home-content {
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 5vw, 3.8rem);
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem 2rem;
+  }
+}

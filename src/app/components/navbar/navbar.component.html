@@ -37,16 +37,8 @@
       </button>
     </div>
 
-    <script>
-      document
-        .getElementById("resumeButton")
-        .addEventListener("click", function () {
-          window.open("/assets/Nikhil_Resume.pdf", "_blank");
-        });
-    </script>
-
-    <!-- CTA Button (Let’s talk) -->
-    <div class="nav-cta">
+    <!-- CTA Button (desktop) -->
+    <div class="nav-cta desktop-only">
       <a
         href="https://www.linkedin.com/in/nikhil-patra-b81906244"
         target="_blank"
@@ -55,5 +47,68 @@
         <button class="cta-button">Let's talk</button>
       </a>
     </div>
+
+    <!-- Hamburger (mobile only) -->
+    <button
+      class="hamburger mobile-only"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      aria-label="Toggle navigation"
+    >
+      <span class="bar" [class.open]="menuOpen"></span>
+      <span class="bar" [class.open]="menuOpen"></span>
+      <span class="bar" [class.open]="menuOpen"></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <button
+      class="nav-button"
+      type="button"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="scrollTo('top')"
+    >
+      Home
+    </button>
+    <button
+      class="nav-button"
+      type="button"
+      routerLink="/projects"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeMenu()"
+    >
+      Projects
+    </button>
+    <a
+      href="/assets/Nikhil_Resume.pdf"
+      target="_blank"
+      class="nav-button"
+      (click)="closeMenu()"
+    >
+      Resume
+    </a>
+    <button
+      class="nav-button"
+      type="button"
+      routerLink="/gallery"
+      routerLinkActive="active"
+      (click)="closeMenu()"
+    >
+      Gallery
+    </button>
+    <a
+      href="https://www.linkedin.com/in/nikhil-patra-b81906244"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mobile-cta"
+      (click)="closeMenu()"
+    >
+      Let's talk
+    </a>
   </div>
 </nav>

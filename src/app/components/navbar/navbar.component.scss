@@ -10,6 +10,8 @@
 .navbar {
   width: 100%;
   background-color: transparent;
+  position: relative;
+  z-index: 100;
 }
 
 .navbar-container {
@@ -45,13 +47,14 @@
   cursor: pointer;
   transition: color 0.3s ease;
   text-decoration: none;
+  display: inline-block;
 
   &:hover {
     color: #ffffff;
   }
 
   &.active {
-    color: #ffffff; /* Highlight active route */
+    color: #ffffff;
   }
 }
 
@@ -73,21 +76,127 @@
   }
 }
 
-/* Responsive Styles */
+/* Hamburger button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 110;
+}
+
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  &:nth-child(1).open {
+    transform: translateY(7px) rotate(45deg);
+  }
+  &:nth-child(2).open {
+    opacity: 0;
+  }
+  &:nth-child(3).open {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* Mobile dropdown */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 1.5rem;
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .nav-button {
+    font-size: 18px;
+    padding: 0.6rem 0;
+    width: 100%;
+    text-align: center;
+    color: #a7a7a7;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.mobile-menu.open {
+  max-height: 400px;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.mobile-cta {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  height: 40px;
+  width: 140px;
+  background-color: #323232;
+  border-radius: 15px;
+  font-family: "Kodchasan";
+  text-decoration: none;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: #444444;
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
 
+  .mobile-only {
+    display: flex !important;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
   .navbar-container {
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 16px;
   }
 
   .logo {
-    font-size: 28px;
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
   }
 
-  .nav-cta {
-    display: none;
+  .mobile-menu {
+    display: none !important;
   }
 }

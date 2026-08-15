@@ -1,26 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap");
 
-/* Main layout */
 .main-container {
   position: relative;
   width: 100%;
   max-width: 1100px;
-  margin: 0 auto; /* center horizontally */
-  margin-top: 10vh;
+  margin: 0 auto;
+  margin-top: clamp(3rem, 8vw, 8rem);
   padding: clamp(16px, 4vw, 24px);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  box-sizing: border-box;
 }
 
-/* Content group */
 .group {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(16px, 3vw, 28px);
+  gap: clamp(12px, 2.5vw, 24px);
   width: 100%;
   max-width: 600px;
 }
@@ -28,15 +27,8 @@
 .text-3 {
   font-family: Kodchasan;
   font-weight: 400;
-  font-size: clamp(14px, 2.2vw, 17px);
+  font-size: clamp(14px, 2vw, 17px);
   color: #ffffff;
   line-height: 1.6;
   max-width: 560px;
-}
-
-@media (max-width: 768px) {
-  .group {
-    gap: 1rem;
-    padding-right: 2rem;
-  }
 }
