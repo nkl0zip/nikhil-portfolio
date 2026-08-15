@@ -1,0 +1,18 @@
+{
+  "name": "Nikhil Kumar Patra | Full-Stack Developer",
+  "short_name": "Nikhil Patra",
+  "description": "Portfolio of Nikhil Kumar Patra — Full-Stack Developer at SAP Labs, M.Tech BITS Pilani.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "assets/images/web-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
