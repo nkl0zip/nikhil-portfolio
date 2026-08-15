@@ -7,8 +7,8 @@
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 
   @media (max-width: 768px) {
+    opacity: 1;
     transform: none;
-    touch-action: pan-y;
   }
 }
 

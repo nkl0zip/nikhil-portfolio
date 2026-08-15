@@ -22,8 +22,8 @@
     flex-direction: column;
     gap: 0.9rem;
     height: auto;
+    opacity: 1;
     transform: none;
-    touch-action: pan-y;
   }
 }
 
@@ -259,6 +259,11 @@
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+
+  @media (max-width: 768px) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .fade-in-up.show {

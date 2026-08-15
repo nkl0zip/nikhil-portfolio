@@ -10,17 +10,19 @@ export class ExperienceComponent implements AfterViewInit {
   show = false;
 
   ngAfterViewInit(): void {
+    if (window.innerWidth <= 768) {
+      this.show = true;
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           this.show = true;
-          observer.unobserve(this.detailSection.nativeElement); // Stop observing once shown
+          observer.unobserve(this.detailSection.nativeElement);
         }
       },
-      {
-        root: null,
-        threshold: 0.1, // Adjust this if needed
-      }
+      { root: null, threshold: 0.1 }
     );
 
     observer.observe(this.detailSection.nativeElement);

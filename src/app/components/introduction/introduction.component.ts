@@ -10,17 +10,19 @@ export class IntroductionComponent implements AfterViewInit {
   show = false;
 
   ngAfterViewInit(): void {
+    if (window.innerWidth <= 768) {
+      this.show = true;
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           this.show = true;
-          observer.unobserve(this.introSection.nativeElement); // Stop observing once shown
+          observer.unobserve(this.introSection.nativeElement);
         }
       },
-      {
-        root: null,
-        threshold: 0.1, // Adjust this if needed
-      }
+      { root: null, threshold: 0.1 }
     );
 
     observer.observe(this.introSection.nativeElement);

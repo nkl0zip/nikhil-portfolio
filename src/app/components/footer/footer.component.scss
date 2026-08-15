@@ -20,7 +20,9 @@
   transform: translateY(50px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+    opacity: 1;
+    transform: none;
     gap: 0.5rem;
     padding: 1rem;
     text-align: center;
@@ -56,6 +58,11 @@
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+
+  @media (max-width: 768px) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .fade-in-up.show {

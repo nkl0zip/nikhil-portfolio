@@ -24,6 +24,8 @@
     flex-direction: column;
     margin-top: 0.8rem;
     gap: 0.8rem;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -228,6 +230,11 @@
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+
+  @media (max-width: 768px) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .fade-in-up.show {
