@@ -21,6 +21,8 @@
     gap: 0.9rem;
     margin-top: 0.8rem;
     height: auto;
+    transform: none;
+    touch-action: pan-y;
   }
 }
 

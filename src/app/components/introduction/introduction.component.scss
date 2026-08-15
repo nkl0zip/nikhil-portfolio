@@ -22,6 +22,8 @@
     flex-direction: column;
     gap: 0.9rem;
     height: auto;
+    transform: none;
+    touch-action: pan-y;
   }
 }
 
