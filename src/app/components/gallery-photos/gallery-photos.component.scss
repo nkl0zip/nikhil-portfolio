@@ -1,11 +1,89 @@
 @import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap");
 
+.quote-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
+  background: #0f0f0f;
+}
+
+.quote-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 680px;
+  width: 100%;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+  border: 1px solid #2a2a2a;
+  border-left: 4px solid #ff4c4c;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(255, 76, 76, 0.08), 0 2px 8px rgba(0, 0, 0, 0.4);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    width: 6px;
+    height: 6px;
+    background: #ff4c4c;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 3px rgba(255, 76, 76, 0.5);
+  }
+}
+
+.quote-tag {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(10px, 1.4vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff4c4c;
+  background: rgba(255, 76, 76, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 76, 76, 0.25);
+}
+
+.quote-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(15px, 2.2vw, 22px);
+  font-weight: 400;
+  color: #f0f0f0;
+  line-height: 1.65;
+  margin: 0;
+
+  &::before {
+    content: '\201C';
+    font-size: 3em;
+    line-height: 0;
+    vertical-align: -0.45em;
+    color: #ff4c4c;
+    opacity: 0.6;
+    margin-right: 4px;
+  }
+}
+
+.quote-author {
+  font-family: Kodchasan;
+  font-size: clamp(12px, 1.5vw, 15px);
+  font-weight: 600;
+  color: #666;
+  letter-spacing: 0.04em;
+  align-self: flex-end;
+}
+
 .main-container {
   position: relative;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  margin-top: clamp(3rem, 8vw, 8rem);
+  margin-top: clamp(1rem, 4vw, 3rem);
   padding: clamp(16px, 4vw, 24px);
   display: flex;
   justify-content: center;
