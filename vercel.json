@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node set-env.js && ng build --configuration production",
+  "outputDirectory": "dist/my-portfolio",
   "rewrites": [
     { "source": "/((?!assets|favicon\\.ico|robots\\.txt|sitemap\\.xml|manifest\\.webmanifest).*)", "destination": "/index.html" }
   ],
