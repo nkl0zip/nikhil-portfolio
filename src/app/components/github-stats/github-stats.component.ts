@@ -45,11 +45,11 @@ export class GithubStatsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.github.getStats(this.username).subscribe({
       next: (data) => {
-        this.totalContributions = data.calendar.totalContributions;
+        this.totalContributions = data.totalContributions;
         this.totalCommits = data.totalCommits;
         this.totalPRs = data.totalPRs;
         this.totalIssues = data.totalIssues;
-        this.buildHeatmap(data.calendar.weeks);
+        this.buildHeatmap(data.weeks);
         this.loading = false;
       },
       error: () => {
@@ -86,14 +86,20 @@ export class GithubStatsComponent implements OnInit, AfterViewInit {
     const allDays = this.weeks.flat();
     this.activeDays = allDays.filter((d) => d.count > 0).length;
 
-    let maxStreak = 0, streak = 0, cur = 0;
+    let maxStreak = 0, streak = 0;
+    let curStreak = 0;
     for (const day of allDays) {
-      if (day.count > 0) { streak++; cur = streak; }
+      if (day.count > 0) { streak++; }
       else streak = 0;
       if (streak > maxStreak) maxStreak = streak;
     }
+    // current streak = trailing consecutive active days from end
+    for (let i = allDays.length - 1; i >= 0; i--) {
+      if (allDays[i].count > 0) curStreak++;
+      else break;
+    }
     this.longestStreak = maxStreak;
-    this.currentStreak = cur;
+    this.currentStreak = curStreak;
 
     // month labels — one per first week a new month appears
     const seen = new Set<number>();
