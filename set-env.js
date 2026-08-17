@@ -7,11 +7,18 @@ if (!fs.existsSync(envDir)) {
   fs.mkdirSync(envDir, { recursive: true });
 }
 
-const content = `export const environment = {
-  production: true,
-  githubToken: '${process.env.GITHUB_TOKEN || ''}',
-};
-`;
+const token = process.env.GITHUB_TOKEN || '';
 
-fs.writeFileSync(path.join(envDir, 'environment.prod.ts'), content);
-console.log('environment.prod.ts generated successfully');
+fs.writeFileSync(path.join(envDir, 'environment.ts'), `export const environment = {
+  production: false,
+  githubToken: '${token}',
+};
+`);
+
+fs.writeFileSync(path.join(envDir, 'environment.prod.ts'), `export const environment = {
+  production: true,
+  githubToken: '${token}',
+};
+`);
+
+console.log('environment files generated successfully');
