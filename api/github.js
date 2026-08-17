@@ -1,8 +1,8 @@
 const https = require('https');
 
 const QUERY = `
-  query($username: String!, $from: DateTime!, $to: DateTime!) {
-    user(login: $username) {
+  query($from: DateTime!, $to: DateTime!) {
+    viewer {
       contributionsCollection(from: $from, to: $to) {
         totalCommitContributions
         totalPullRequestContributions
@@ -15,6 +15,14 @@ const QUERY = `
               date
               contributionCount
               weekday
+            }
+          }
+        }
+        commitContributionsByRepository(maxRepositories: 100) {
+          contributions(first: 100) {
+            nodes {
+              occurredAt
+              commitCount
             }
           }
         }
@@ -53,8 +61,12 @@ function post(token, body) {
   });
 }
 
-function fetchRange(token, username, from, to) {
-  return post(token, { query: QUERY, variables: { username, from, to } });
+// Build YYYY-MM-DD from a Date using LOCAL date parts (avoids UTC timezone shift)
+function localDateStr(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }
 
 module.exports = async (req, res) => {
@@ -62,30 +74,22 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') { res.status(200).end(); return; }
 
-  const username = (req.query.username || '').trim();
-  if (!username) { res.status(400).json({ error: 'username required' }); return; }
-
   const token = process.env.GITHUB_TOKEN;
   if (!token) { res.status(500).json({ error: 'GITHUB_TOKEN not configured' }); return; }
 
   try {
     const now = new Date();
-    // Rolling 365 days: today - 365 days → today
-    // GitHub API caps contributionsCollection at 1 year per call.
-    // If the 365-day window spans two calendar years, we need two calls.
+
+    // Rolling 365-day window split at Jan 1 to stay within GitHub's 1-year-per-query cap
     const todayISO = now.toISOString();
     const yearAgo = new Date(now);
     yearAgo.setFullYear(yearAgo.getFullYear() - 1);
     const yearAgoISO = yearAgo.toISOString();
+    const currentYearStartISO = new Date(Date.UTC(now.getUTCFullYear(), 0, 1)).toISOString();
 
-    const currentYearStart = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
-    const prevYearEnd = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
-    prevYearEnd.setUTCMilliseconds(-1); // Dec 31 end of prev year
-
-    // Always fetch two ranges and merge — handles cross-year boundary cleanly
     const [r1, r2] = await Promise.all([
-      fetchRange(token, username, yearAgoISO, currentYearStart.toISOString()),
-      fetchRange(token, username, currentYearStart.toISOString(), todayISO),
+      post(token, { query: QUERY, variables: { from: yearAgoISO, to: currentYearStartISO } }),
+      post(token, { query: QUERY, variables: { from: currentYearStartISO, to: todayISO } }),
     ]);
 
     for (const r of [r1, r2]) {
@@ -95,49 +99,77 @@ module.exports = async (req, res) => {
       }
     }
 
-    const col1 = r1.data?.user?.contributionsCollection;
-    const col2 = r2.data?.user?.contributionsCollection;
-    if (!col1 || !col2) { res.status(404).json({ error: 'User not found' }); return; }
+    const col1 = r1.data?.viewer?.contributionsCollection;
+    const col2 = r2.data?.viewer?.contributionsCollection;
+    if (!col1 || !col2) { res.status(404).json({ error: 'Could not fetch contributions' }); return; }
 
-    // Merge all days from both ranges into a single date→count map
-    const dayMap = {};
+    // Build date→count map from contributionCalendar (already deduped per day by GitHub)
+    // These dates are strings like "2026-08-17" in the user's timezone as stored by GitHub
+    const calMap = {};
     for (const col of [col1, col2]) {
       for (const week of col.contributionCalendar.weeks) {
         for (const day of week.contributionDays) {
-          dayMap[day.date] = (dayMap[day.date] || 0) + day.contributionCount;
+          // Accumulate (ranges may overlap at boundary)
+          calMap[day.date] = (calMap[day.date] || 0) + day.contributionCount;
         }
       }
     }
 
-    // Build a clean 53-week grid: start from Sunday on or before (today - 364 days)
+    // Also build from commitContributionsByRepository as a cross-check
+    // occurredAt is ISO timestamp — slice to date part which GitHub stores in user's timezone
+    const repoMap = {};
+    for (const col of [col1, col2]) {
+      for (const repo of col.commitContributionsByRepository) {
+        for (const node of repo.contributions.nodes) {
+          const date = node.occurredAt.slice(0, 10);
+          repoMap[date] = (repoMap[date] || 0) + node.commitCount;
+        }
+      }
+    }
+
+    // Merge: use calMap as base (includes PRs, issues, repo creations),
+    // but for any date where repoMap has commits not in calMap, add them
+    const dayMap = Object.assign({}, calMap);
+    for (const [date, count] of Object.entries(repoMap)) {
+      if (!dayMap[date]) {
+        dayMap[date] = count;
+      }
+    }
+
+    // Build a clean 53-week Sunday-aligned grid for last 365 days
+    // Use local date math to match GitHub's date strings
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const start = new Date(today);
     start.setDate(start.getDate() - 364);
-    start.setDate(start.getDate() - start.getDay()); // rewind to Sunday
+    start.setDate(start.getDate() - start.getDay()); // rewind to nearest Sunday
 
     const weeks = [];
     let week = [];
     const d = new Date(start);
+
     while (d <= today) {
-      const dateStr = d.toISOString().slice(0, 10);
+      const dateStr = localDateStr(d);
       week.push({
         date: dateStr,
         contributionCount: dayMap[dateStr] || 0,
         weekday: d.getDay(),
       });
-      if (week.length === 7) { weeks.push({ contributionDays: week }); week = []; }
+      if (week.length === 7) {
+        weeks.push({ contributionDays: week });
+        week = [];
+      }
       d.setDate(d.getDate() + 1);
     }
     if (week.length) weeks.push({ contributionDays: week });
 
-    // Totals: sum current year only (matches GitHub profile display)
-    const totalContributions =
-      col2.contributionCalendar.totalContributions +
-      (col2.restrictedContributionsCount || 0);
+    // Total = sum of all days in our 365-day window (most accurate)
+    const totalContributions = Object.entries(dayMap)
+      .filter(([date]) => date >= localDateStr(yearAgo) && date <= localDateStr(today))
+      .reduce((s, [, v]) => s + v, 0);
 
-    const totalCommits  = col1.totalCommitContributions  + col2.totalCommitContributions;
-    const totalPRs      = col1.totalPullRequestContributions + col2.totalPullRequestContributions;
-    const totalIssues   = col1.totalIssueContributions   + col2.totalIssueContributions;
+    const totalCommits = col1.totalCommitContributions + col2.totalCommitContributions;
+    const totalPRs = col1.totalPullRequestContributions + col2.totalPullRequestContributions;
+    const totalIssues = col1.totalIssueContributions + col2.totalIssueContributions;
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     res.status(200).json({ totalContributions, totalCommits, totalPRs, totalIssues, weeks });
