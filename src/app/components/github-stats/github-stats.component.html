@@ -1,0 +1,93 @@
+<div
+  class="github-section"
+  #sectionRef
+  [ngClass]="{ 'fade-in-up show': show }"
+>
+  <section class="card gh-card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="platform-badge">
+        <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span class="platform-name">GitHub</span>
+      </div>
+      <a [href]="profileUrl" target="_blank" rel="noopener noreferrer" class="profile-link">
+        <span class="username">@{{ username }}</span>
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Loading skeleton -->
+    <ng-container *ngIf="loading">
+      <div class="skeleton-stats">
+        <div class="skeleton-stat" *ngFor="let i of [1,2,3,4]"></div>
+      </div>
+      <div class="skeleton-heatmap">
+        <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
+      </div>
+    </ng-container>
+
+    <!-- Error state -->
+    <div class="error-state" *ngIf="error && !loading">
+      <span>Could not load GitHub data. Check back later.</span>
+    </div>
+
+    <!-- Live data -->
+    <ng-container *ngIf="!loading && !error">
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-value">{{ totalContributions }}</span>
+          <span class="stat-label">Contributions</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-value">{{ totalCommits }}</span>
+          <span class="stat-label">Commits</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-value">{{ longestStreak }}</span>
+          <span class="stat-label">Longest Streak</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-value">{{ activeDays }}</span>
+          <span class="stat-label">Active Days</span>
+        </div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="heatmap-wrapper">
+        <div class="month-labels">
+          <span
+            *ngFor="let m of monthLabels"
+            class="month-label"
+            [style.grid-column]="m.col + 1"
+          >{{ m.label }}</span>
+        </div>
+        <div class="heatmap-grid">
+          <div class="week-col" *ngFor="let week of weeks">
+            <div
+              *ngFor="let day of week"
+              [class]="levelClass(day.level)"
+              [title]="tooltip(day)"
+            ></div>
+          </div>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label">Less</span>
+          <div class="gh-cell level-0 legend-cell"></div>
+          <div class="gh-cell level-1 legend-cell"></div>
+          <div class="gh-cell level-2 legend-cell"></div>
+          <div class="gh-cell level-3 legend-cell"></div>
+          <div class="gh-cell level-4 legend-cell"></div>
+          <span class="legend-label">More</span>
+        </div>
+      </div>
+
+    </ng-container>
+  </section>
+</div>

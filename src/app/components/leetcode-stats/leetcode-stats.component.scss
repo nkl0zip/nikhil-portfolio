@@ -1,0 +1,385 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap");
+
+/* ── Animation ── */
+.leetcode-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  @media (max-width: 768px) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.leetcode-section.fade-in-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Row wrapper ── */
+.leetcode-section {
+  position: relative;
+  width: 100%;
+  margin-top: 2rem;
+  padding-top: 0;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding-top: 0;
+    margin-top: 0.8rem;
+  }
+}
+
+/* ── Card ── */
+.card {
+  position: relative;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1.1rem 1rem 1.3rem;
+  }
+}
+
+/* ── Card header ── */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.platform-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.platform-icon {
+  width: clamp(18px, 2vw, 22px);
+  height: clamp(18px, 2vw, 22px);
+  flex-shrink: 0;
+}
+
+.platform-name {
+  font-family: Kodchasan;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: #a7a7a7;
+  transition: color 0.2s ease;
+
+  &:hover { color: #ffa116; }
+}
+
+.username {
+  font-family: Kodchasan;
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 700;
+}
+
+.link-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* ── Solved row ── */
+.solved-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+  }
+}
+
+.solved-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 161, 22, 0.07);
+  border: 1px solid rgba(255, 161, 22, 0.2);
+  border-radius: 12px;
+  padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.9rem, 1.5vw, 1.3rem);
+  flex-shrink: 0;
+}
+
+.solved-num {
+  font-family: Kodchasan;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 700;
+  color: #ffa116;
+  line-height: 1;
+}
+
+.solved-sub {
+  font-family: Kodchasan;
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 700;
+  color: #a7a7a7;
+  margin-top: 0.2rem;
+}
+
+.diff-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1 1 0;
+  min-width: 120px;
+}
+
+.diff-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diff-label {
+  font-family: Kodchasan;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 700;
+
+  &.easy   { color: #00b8a3; }
+  &.medium { color: #ffa116; }
+  &.hard   { color: #ef4743; }
+}
+
+.diff-count {
+  font-family: Kodchasan;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 700;
+  color: #a7a7a7;
+}
+
+.diff-track {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.diff-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.9s ease;
+
+  &.easy-fill   { background: #00b8a3; }
+  &.medium-fill { background: #ffa116; }
+  &.hard-fill   { background: #ef4743; }
+}
+
+/* ── Side stat boxes ── */
+.side-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
+  gap: 0.2rem;
+}
+
+.stat-value {
+  font-family: Kodchasan;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: Kodchasan;
+  font-size: clamp(10px, 1vw, 11px);
+  font-weight: 700;
+  color: #a7a7a7;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Heatmap ── */
+.heatmap-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+
+  &::-webkit-scrollbar { height: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+}
+
+.month-labels {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(10px, 1.2vw, 13px);
+  gap: 3px;
+  min-width: max-content;
+}
+
+.month-label {
+  font-family: Kodchasan;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a7a7a7;
+  white-space: nowrap;
+}
+
+.heatmap-grid {
+  display: flex;
+  gap: 3px;
+  min-width: max-content;
+}
+
+.week-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ── LeetCode submission cell colours ── */
+.lc-cell {
+  width: clamp(10px, 1.2vw, 13px);
+  height: clamp(10px, 1.2vw, 13px);
+  border-radius: 2px;
+  cursor: default;
+  transition: opacity 0.15s ease;
+
+  &:hover { opacity: 0.75; }
+
+  &.level-0 { background: #1a1a1a; border: 1px solid rgba(255, 255, 255, 0.05); }
+  &.level-1 { background: #4a3000; }
+  &.level-2 { background: #7a5200; }
+  &.level-3 { background: #b07600; }
+  &.level-4 { background: #ffa116; }
+}
+
+/* ── Legend ── */
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  justify-content: flex-end;
+}
+
+.legend-cell {
+  width: 11px !important;
+  height: 11px !important;
+  pointer-events: none;
+}
+
+.legend-label {
+  font-family: Kodchasan;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a7a7a7;
+}
+
+/* ── Loading skeleton ── */
+.skeleton-solved-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.skeleton-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-bars {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 120px;
+}
+
+.skeleton-bar {
+  height: 18px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-stat {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.skeleton-row {
+  height: clamp(10px, 1.2vw, 13px);
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Error state ── */
+.error-state {
+  padding: 1.5rem 0;
+  text-align: center;
+  font-family: Kodchasan;
+  font-size: 14px;
+  color: #a7a7a7;
+}

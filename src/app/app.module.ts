@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,8 @@ import { UpcomingComponent } from './components/upcoming/upcoming.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryHeroComponent } from './components/gallery-hero/gallery-hero.component';
 import { GalleryPhotosComponent } from './components/gallery-photos/gallery-photos.component';
+import { GithubStatsComponent } from './components/github-stats/github-stats.component';
+import { LeetcodeStatsComponent } from './components/leetcode-stats/leetcode-stats.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +43,10 @@ import { GalleryPhotosComponent } from './components/gallery-photos/gallery-phot
     GalleryComponent,
     GalleryHeroComponent,
     GalleryPhotosComponent,
+    GithubStatsComponent,
+    LeetcodeStatsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

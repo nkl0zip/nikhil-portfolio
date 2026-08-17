@@ -1,0 +1,128 @@
+<div
+  class="leetcode-section"
+  #sectionRef
+  [ngClass]="{ 'fade-in-up show': show }"
+>
+  <section class="card lc-card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="platform-badge">
+        <svg class="platform-icon" viewBox="0 0 95 111" fill="none" aria-hidden="true">
+          <path d="M68.3 83.6H27.4c-2.4 0-4.3-1.9-4.3-4.3s1.9-4.3 4.3-4.3h40.9c2.4 0 4.3 1.9 4.3 4.3s-1.9 4.3-4.3 4.3z" fill="#FFA116"/>
+          <path d="M43.3 109.9c-4 0-7.8-1.5-10.7-4.3L7.3 80.7C1.2 74.7 1.2 64.9 7.3 59L50 16.3c2.9-2.9 6.7-4.4 10.7-4.4s7.8 1.5 10.7 4.4l13.3 13.3c1.7 1.7 1.7 4.4 0 6.1-1.7 1.7-4.4 1.7-6.1 0L65.3 22.4c-1.2-1.2-2.8-1.9-4.6-1.9s-3.4.7-4.6 1.9L13.4 65.1c-2.5 2.5-2.5 6.6 0 9.2l25.3 24.9c1.2 1.2 2.8 1.9 4.6 1.9 1.7 0 3.4-.7 4.6-1.9l8.4-8.4c1.7-1.7 4.4-1.7 6.1 0 1.7 1.7 1.7 4.4 0 6.1l-8.4 8.4c-2.9 3-6.7 4.6-10.7 4.6z" fill="#B3B3B3"/>
+          <path d="M82.3 76.1c-1.1 0-2.2-.4-3-1.3L55.6 50.5c-1.7-1.7-1.7-4.4 0-6.1 1.7-1.7 4.4-1.7 6.1 0l23.7 24.3c1.7 1.7 1.7 4.4 0 6.1-.9.9-2 1.3-3.1 1.3z" fill="#B3B3B3"/>
+        </svg>
+        <span class="platform-name">LeetCode</span>
+      </div>
+      <a [href]="profileUrl" target="_blank" rel="noopener noreferrer" class="profile-link">
+        <span class="username">@{{ username }}</span>
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Loading skeleton -->
+    <ng-container *ngIf="loading">
+      <div class="skeleton-solved-row">
+        <div class="skeleton-circle"></div>
+        <div class="skeleton-bars">
+          <div class="skeleton-bar" *ngFor="let i of [1,2,3]"></div>
+        </div>
+        <div class="skeleton-stat"></div>
+      </div>
+      <div class="skeleton-heatmap">
+        <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
+      </div>
+    </ng-container>
+
+    <!-- Error state -->
+    <div class="error-state" *ngIf="error && !loading">
+      <span>Could not load LeetCode data. Check back later.</span>
+    </div>
+
+    <!-- Live data -->
+    <ng-container *ngIf="!loading && !error">
+
+      <!-- Solved + breakdown -->
+      <div class="solved-row">
+        <div class="solved-total">
+          <span class="solved-num">{{ totalSolved }}</span>
+          <span class="solved-sub">Solved</span>
+        </div>
+
+        <div class="diff-bars">
+          <div class="diff-item">
+            <div class="diff-header">
+              <span class="diff-label easy">Easy</span>
+              <span class="diff-count">{{ easySolved }}</span>
+            </div>
+            <div class="diff-track">
+              <div class="diff-fill easy-fill" [style.width.%]="easyPct"></div>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-header">
+              <span class="diff-label medium">Medium</span>
+              <span class="diff-count">{{ mediumSolved }}</span>
+            </div>
+            <div class="diff-track">
+              <div class="diff-fill medium-fill" [style.width.%]="mediumPct"></div>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-header">
+              <span class="diff-label hard">Hard</span>
+              <span class="diff-count">{{ hardSolved }}</span>
+            </div>
+            <div class="diff-track">
+              <div class="diff-fill hard-fill" [style.width.%]="hardPct"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-stats">
+          <div class="stat-box">
+            <span class="stat-value">{{ acceptanceRate }}%</span>
+            <span class="stat-label">Acceptance</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value">{{ activeDays }}</span>
+            <span class="stat-label">Active Days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="heatmap-wrapper">
+        <div class="month-labels">
+          <span
+            *ngFor="let m of monthLabels"
+            class="month-label"
+            [style.grid-column]="m.col + 1"
+          >{{ m.label }}</span>
+        </div>
+        <div class="heatmap-grid">
+          <div class="week-col" *ngFor="let week of weeks">
+            <div
+              *ngFor="let day of week"
+              [class]="levelClass(day.level)"
+              [title]="tooltip(day)"
+            ></div>
+          </div>
+        </div>
+        <div class="legend-row">
+          <span class="legend-label">Less</span>
+          <div class="lc-cell level-0 legend-cell"></div>
+          <div class="lc-cell level-1 legend-cell"></div>
+          <div class="lc-cell level-2 legend-cell"></div>
+          <div class="lc-cell level-3 legend-cell"></div>
+          <div class="lc-cell level-4 legend-cell"></div>
+          <span class="legend-label">More</span>
+        </div>
+      </div>
+
+    </ng-container>
+  </section>
+</div>
