@@ -1,9 +1,9 @@
-<nav class="navbar">
+<nav class="navbar" [class.menu-open]="menuOpen">
   <div class="navbar-container">
     <!-- Logo -->
-    <div class="logo">Nikhil</div>
+    <a class="logo" routerLink="/" (click)="closeMenu()" aria-label="Home">Nikhil</a>
 
-    <!-- Desktop Menu -->
+    <!-- Desktop links -->
     <div class="nav-links desktop-only">
       <button
         class="nav-button"
@@ -12,32 +12,36 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="scrollTo('top')"
-      >
-        Home
-      </button>
+      >Home</button>
+
       <button
         class="nav-button"
         type="button"
         routerLink="/projects"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Projects
-      </button>
+      >Projects</button>
+
       <a href="/assets/Nikhil_Resume.pdf" target="_blank" class="nav-button">
         Resume
       </a>
+
       <button
         class="nav-button"
         type="button"
         routerLink="/gallery"
         routerLinkActive="active"
-      >
-        Gallery
-      </button>
+      >Gallery</button>
+
+      <button
+        class="nav-button"
+        type="button"
+        routerLink="/games/wordle"
+        routerLinkActive="active"
+      >Games</button>
     </div>
 
-    <!-- CTA Button (desktop) -->
+    <!-- Desktop CTA -->
     <div class="nav-cta desktop-only">
       <a
         href="https://www.linkedin.com/in/nikhil-patra-b81906244"
@@ -54,61 +58,95 @@
       type="button"
       (click)="toggleMenu()"
       [attr.aria-expanded]="menuOpen"
-      aria-label="Toggle navigation"
+      [attr.aria-label]="menuOpen ? 'Close navigation' : 'Open navigation'"
     >
-      <span class="bar" [class.open]="menuOpen"></span>
-      <span class="bar" [class.open]="menuOpen"></span>
-      <span class="bar" [class.open]="menuOpen"></span>
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
     </button>
   </div>
+</nav>
 
-  <!-- Mobile dropdown menu -->
-  <div class="mobile-menu" [class.open]="menuOpen">
+<!-- Mobile overlay backdrop -->
+<div
+  class="mobile-backdrop mobile-only"
+  [class.open]="menuOpen"
+  (click)="closeMenu()"
+  aria-hidden="true"
+></div>
+
+<!-- Mobile slide-in drawer -->
+<div
+  class="mobile-drawer mobile-only"
+  [class.open]="menuOpen"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation menu"
+>
+  <!-- Close button inside drawer -->
+  <button
+    class="drawer-close"
+    type="button"
+    (click)="closeMenu()"
+    aria-label="Close navigation"
+  >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div class="drawer-logo">Nikhil</div>
+
+  <nav class="drawer-links" aria-label="Mobile navigation">
     <button
-      class="nav-button"
+      class="drawer-link"
       type="button"
       routerLink="/"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="scrollTo('top')"
-    >
-      Home
-    </button>
+    >Home</button>
+
     <button
-      class="nav-button"
+      class="drawer-link"
       type="button"
       routerLink="/projects"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="closeMenu()"
-    >
-      Projects
-    </button>
+    >Projects</button>
+
     <a
       href="/assets/Nikhil_Resume.pdf"
       target="_blank"
-      class="nav-button"
+      class="drawer-link"
       (click)="closeMenu()"
-    >
-      Resume
-    </a>
+    >Resume</a>
+
     <button
-      class="nav-button"
+      class="drawer-link"
       type="button"
       routerLink="/gallery"
       routerLinkActive="active"
       (click)="closeMenu()"
-    >
-      Gallery
-    </button>
+    >Gallery</button>
+
+    <button
+      class="drawer-link"
+      type="button"
+      routerLink="/games/wordle"
+      routerLinkActive="active"
+      (click)="closeMenu()"
+    >Games</button>
+  </nav>
+
+  <div class="drawer-footer">
     <a
       href="https://www.linkedin.com/in/nikhil-patra-b81906244"
       target="_blank"
       rel="noopener noreferrer"
-      class="mobile-cta"
+      class="drawer-cta"
       (click)="closeMenu()"
-    >
-      Let's talk
-    </a>
+    >Let's talk</a>
   </div>
-</nav>
+</div>

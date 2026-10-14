@@ -1,12 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@700&display=swap");
 
-:root {
-  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
-    "Source Han Sans CN", sans-serif;
-}
+// ─── Shared token ────────────────────────────────────────────────
+$font: 'Kodchasan', sans-serif;
+$mobile: 768px;
 
+// ─── Navbar bar (identical to original on desktop) ───────────────
 .navbar {
   width: 100%;
   background-color: transparent;
@@ -22,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "Kodchasan";
+  font-family: $font;
 }
 
 .logo {
@@ -30,8 +28,11 @@
   font-weight: 700;
   color: #ffffff;
   text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
+// ─── Desktop nav links (unchanged) ───────────────────────────────
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -41,7 +42,7 @@
   background: none;
   border: none;
   color: #a7a7a7;
-  font-family: "Kodchasan";
+  font-family: $font;
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
@@ -49,13 +50,8 @@
   text-decoration: none;
   display: inline-block;
 
-  &:hover {
-    color: #ffffff;
-  }
-
-  &.active {
-    color: #ffffff;
-  }
+  &:hover  { color: #ffffff; }
+  &.active { color: #ffffff; }
 }
 
 .nav-cta .cta-button {
@@ -67,137 +63,236 @@
   background-color: #323232;
   border: none;
   border-radius: 15px;
-  font-family: "Kodchasan";
+  font-family: $font;
   cursor: pointer;
   transition: background 0.3s ease;
 
-  &:hover {
-    background-color: #444444;
-  }
+  &:hover { background-color: #444444; }
 }
 
-/* Hamburger button */
+// ─── Hamburger button ────────────────────────────────────────────
 .hamburger {
-  display: none;
+  display: none;               // shown only on mobile via the rule below
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 110;
+  z-index: 120;
+  width: 40px;
+  height: 40px;
 }
 
 .bar {
   display: block;
-  width: 24px;
+  width: 22px;
   height: 2px;
   background-color: #ffffff;
   border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+  transition: transform 0.32s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity   0.32s cubic-bezier(0.23, 1, 0.32, 1);
+}
 
-  &:nth-child(1).open {
-    transform: translateY(7px) rotate(45deg);
-  }
-  &:nth-child(2).open {
-    opacity: 0;
-  }
-  &:nth-child(3).open {
-    transform: translateY(-7px) rotate(-45deg);
+// Animate bars to × when menu is open
+.menu-open .bar-1 { transform: translateY(7px) rotate(45deg); }
+.menu-open .bar-2 { opacity: 0; transform: scaleX(0); }
+.menu-open .bar-3 { transform: translateY(-7px) rotate(-45deg); }
+
+// ─── Mobile backdrop ─────────────────────────────────────────────
+.mobile-backdrop {
+  display: none;   // hidden by default; shown on mobile via media query
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 140;
+  transition: background 0.35s ease;
+  pointer-events: none;
+
+  &.open {
+    background: rgba(0, 0, 0, 0.55);
+    pointer-events: auto;
   }
 }
 
-/* Mobile dropdown */
-.mobile-menu {
-  display: none;
+// ─── Slide-in drawer ─────────────────────────────────────────────
+.mobile-drawer {
+  display: none;   // hidden by default; shown on mobile via media query
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(80vw, 320px);
+  background: #111111;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 150;
+  padding: 0 0 2rem;
+  box-sizing: border-box;
   flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.23, 1, 0.32, 1);
+  // Subtle glass shimmer on the edge
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+// Drawer header row
+.drawer-close {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem 1.5rem;
-  background: #1a1a1a;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  justify-content: center;
+  cursor: pointer;
+  color: #a7a7a7;
+  transition: background 0.2s ease, color 0.2s ease;
 
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
-  padding-top: 0;
-  padding-bottom: 0;
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+}
 
-  .nav-button {
-    font-size: 18px;
-    padding: 0.6rem 0;
-    width: 100%;
-    text-align: center;
-    color: #a7a7a7;
+.drawer-logo {
+  font-family: $font;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 28px 28px 0;
+}
 
-    &:hover {
-      color: #ffffff;
+// Drawer nav links
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0 0;
+  gap: 0;
+  flex: 1;
+}
+
+.drawer-link {
+  font-family: $font;
+  font-size: 18px;
+  font-weight: 700;
+  color: #a7a7a7;
+  background: none;
+  border: none;
+  text-decoration: none;
+  text-align: left;
+  padding: 0.85rem 28px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: color 0.2s ease, background 0.2s ease;
+  border-left: 3px solid transparent;
+  box-sizing: border-box;
+
+  &:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &.active {
+    color: #ffffff;
+    border-left-color: #6a84e2;
+    background: rgba(106, 132, 226, 0.06);
+  }
+}
+
+// Stagger links in on open
+.mobile-drawer.open .drawer-link {
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation: drawer-link-in 0.3s cubic-bezier(0.23, 1, 0.32, 1) #{0.1 + $i * 0.045}s both;
     }
   }
 }
 
-.mobile-menu.open {
-  max-height: 400px;
-  padding: 1rem 1.5rem 1.5rem;
+@keyframes drawer-link-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.mobile-cta {
-  margin-top: 0.5rem;
-  display: inline-flex;
+// Drawer footer CTA
+.drawer-footer {
+  padding: 1.5rem 28px 0;
+  margin-top: auto;
+}
+
+.drawer-cta {
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 700;
-  height: 40px;
-  width: 140px;
+  width: 100%;
+  height: 44px;
   background-color: #323232;
   border-radius: 15px;
-  font-family: "Kodchasan";
+  font-family: $font;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: background 0.25s ease;
 
-  &:hover {
-    background-color: #444444;
-  }
+  &:hover { background-color: #444444; }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none !important;
-  }
+// ─── Responsive breakpoints ───────────────────────────────────────
+@media (max-width: $mobile) {
+  // Hide desktop elements
+  .desktop-only { display: none !important; }
 
-  .mobile-only {
+  // Show hamburger
+  .hamburger {
     display: flex !important;
   }
 
-  .hamburger {
-    display: flex;
-  }
-
-  .mobile-menu {
-    display: flex;
-  }
-
+  // Shrink navbar bar on mobile
   .navbar-container {
     justify-content: space-between;
     padding: 0 16px;
     height: 68px;
   }
 
-  .logo {
-    font-size: 26px;
-  }
+  .logo { font-size: 26px; }
+
+  // Activate backdrop & drawer on mobile
+  .mobile-backdrop { display: block; }
+  .mobile-drawer   { display: flex; }
 }
 
-@media (min-width: 769px) {
-  .mobile-only {
-    display: none !important;
-  }
+@media (min-width: #{$mobile + 1}) {
+  // Ensure mobile-only elements are always hidden on desktop
+  .mobile-only { display: none !important; }
+}
 
-  .mobile-menu {
-    display: none !important;
+// ─── Reduced motion ───────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .mobile-drawer,
+  .mobile-backdrop,
+  .bar,
+  .drawer-link {
+    transition: none !important;
+    animation: none !important;
   }
 }
