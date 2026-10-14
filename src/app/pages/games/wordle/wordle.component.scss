@@ -1,0 +1,448 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap");
+
+:host {
+  display: block;
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* ── Page wrapper ─────────────────────────────────────────────── */
+.wordle-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Main content area ────────────────────────────────────────── */
+.wordle-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 2rem) 3rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+.game-header {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 0.25rem;
+}
+
+.game-title {
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+.game-subtitle {
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(12px, 1.6vw, 15px);
+  color: #a7a7a7;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.rule-hint {
+  display: block;
+  font-size: clamp(11px, 1.3vw, 13px);
+  color: #666;
+  margin-top: 0.15rem;
+}
+
+/* ── Status bar ───────────────────────────────────────────────── */
+.status-bar {
+  width: 100%;
+  text-align: center;
+  min-height: 1.4rem;
+}
+
+.attempts-left {
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(12px, 1.4vw, 14px);
+  font-weight: 700;
+  color: #a7a7a7;
+}
+
+/* ── Message toast ────────────────────────────────────────────── */
+.message-toast {
+  position: fixed;
+  top: clamp(80px, 10vw, 110px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 0.55rem 1.4rem;
+  border-radius: 12px;
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 700;
+  background: linear-gradient(45deg, #1d1d1d, #111111);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  &.message-error {
+    border-color: rgba(220, 80, 80, 0.35);
+    color: #ff8080;
+  }
+
+  &.message-success {
+    border-color: rgba(80, 200, 120, 0.35);
+    color: #7be8a0;
+  }
+
+  &.message-info {
+    border-color: rgba(106, 132, 226, 0.35);
+    color: #6a84e2;
+  }
+}
+
+/* ── Guess grid ───────────────────────────────────────────────── */
+.grid-section {
+  width: 100%;
+}
+
+.game-grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 1vw, 7px);
+  align-items: center;
+  width: 100%;
+}
+
+.grid-row {
+  display: flex;
+  gap: clamp(5px, 1vw, 7px);
+  width: 100%;
+  max-width: min(100%, 420px);
+  justify-content: center;
+
+  &.shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+}
+
+/* ── Grid tile ────────────────────────────────────────────────── */
+.grid-tile {
+  flex: 1 1 0;
+  max-width: clamp(44px, 14vw, 62px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(16px, 4vw, 24px);
+  font-weight: 700;
+  border-radius: 10px;
+  box-sizing: border-box;
+  user-select: none;
+  transition: border-color 0.1s ease, background-color 0.1s ease;
+  will-change: transform;
+  color: #ffffff;
+
+  /* Default empty state */
+  background: linear-gradient(45deg, #1a1a1a, #111111);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  &.tile-active {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: linear-gradient(45deg, #1d1d1d, #141414);
+  }
+
+  &.tile-pop {
+    animation: pop 0.1s ease;
+  }
+
+  &.tile-flip {
+    animation: flip-in 0.28s ease forwards;
+  }
+
+  /* Revealed states — match portfolio accent colors */
+  &.tile-correct {
+    background: linear-gradient(45deg, #1a4a2e, #0f3520);
+    border-color: rgba(80, 200, 120, 0.4);
+    color: #7be8a0;
+  }
+
+  &.tile-present {
+    background: linear-gradient(45deg, #4a3a1a, #352a0f);
+    border-color: rgba(220, 180, 60, 0.4);
+    color: #e8c86a;
+  }
+
+  &.tile-absent {
+    background: linear-gradient(45deg, #1d1d1d, #111111);
+    border-color: rgba(255, 255, 255, 0.04);
+    color: #555;
+  }
+}
+
+/* ── Result panel ─────────────────────────────────────────────── */
+.result-panel {
+  width: 100%;
+  max-width: min(100%, 420px);
+  border-radius: 20px;
+  padding: 1.2rem 1.5rem;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  animation: fade-in-up 0.4s ease forwards;
+
+  &.result-win {
+    background: linear-gradient(45deg, #1a2d1a, #111811);
+    border: 1px solid rgba(80, 200, 120, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  &.result-loss {
+    background: linear-gradient(45deg, #1d1d1d, #111111);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.result-icon {
+  font-size: clamp(28px, 5vw, 38px);
+  line-height: 1;
+}
+
+.result-message {
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(15px, 2.5vw, 20px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+
+  strong {
+    color: #6a84e2;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.new-game-btn,
+.restart-btn {
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(13px, 1.8vw, 16px);
+  font-weight: 700;
+  color: #ffffff;
+  background: #323232;
+  border: none;
+  border-radius: 12px;
+  padding: 0.5rem 1.8rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+  outline: none;
+
+  &:hover {
+    background: #444;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #6a84e2;
+    outline-offset: 3px;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ── Keyboard ─────────────────────────────────────────────────── */
+.keyboard-section {
+  width: 100%;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 1vw, 7px);
+  align-items: center;
+  width: 100%;
+}
+
+.key-row {
+  display: flex;
+  gap: clamp(4px, 0.8vw, 6px);
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  flex: 0 0 auto;
+  width: clamp(28px, 8vw, 42px);
+  height: clamp(42px, 8vw, 54px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-family: Kodchasan, sans-serif;
+  font-size: clamp(11px, 2.2vw, 15px);
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  outline: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  touch-action: manipulation;
+
+  &:active {
+    transform: scale(0.93);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #6a84e2;
+    outline-offset: 2px;
+  }
+
+  &.key-wide {
+    width: clamp(52px, 13vw, 68px);
+    font-size: clamp(9px, 1.8vw, 12px);
+    letter-spacing: 0.01em;
+  }
+
+  /* Key color states */
+  &.key-unused {
+    background: linear-gradient(45deg, #2a2a2a, #1e1e1e);
+    color: #cccccc;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  &.key-absent {
+    background: linear-gradient(45deg, #1a1a1a, #111111);
+    color: #444;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  &.key-present {
+    background: linear-gradient(45deg, #4a3a1a, #352a0f);
+    color: #e8c86a;
+    border: 1px solid rgba(220, 180, 60, 0.3);
+  }
+
+  &.key-correct {
+    background: linear-gradient(45deg, #1a4a2e, #0f3520);
+    color: #7be8a0;
+    border: 1px solid rgba(80, 200, 120, 0.3);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.65;
+
+    &:active {
+      transform: none;
+    }
+  }
+}
+
+/* ── Game controls ────────────────────────────────────────────── */
+.game-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.25rem;
+}
+
+/* ── Animations ───────────────────────────────────────────────── */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flip-in {
+  0%   { transform: rotateX(0deg); }
+  50%  { transform: rotateX(-90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%       { transform: translateX(-5px); }
+  30%       { transform: translateX(5px); }
+  50%       { transform: translateX(-4px); }
+  70%       { transform: translateX(4px); }
+  90%       { transform: translateX(-2px); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .grid-tile,
+  .result-panel,
+  .grid-row,
+  .message-toast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .wordle-content {
+    padding: 0.75rem 0.75rem 2.5rem;
+    gap: 0.75rem;
+  }
+
+  .grid-tile {
+    border-radius: 7px;
+  }
+
+  .key {
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .key {
+    width: clamp(24px, 8.5vw, 32px);
+    height: clamp(36px, 9vw, 44px);
+    font-size: 10px;
+  }
+
+  .key.key-wide {
+    width: clamp(44px, 14vw, 54px);
+    font-size: 9px;
+  }
+}

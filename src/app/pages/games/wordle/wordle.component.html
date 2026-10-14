@@ -1,0 +1,127 @@
+<div class="wordle-page">
+  <app-navbar></app-navbar>
+
+  <main class="wordle-content" role="main">
+    <!-- Header -->
+    <header class="game-header">
+      <h1 class="game-title">Wordle</h1>
+      <p class="game-subtitle">
+        Guess the 6-letter word in 7 tries.
+        <span class="rule-hint">
+          Each guess must be a valid word.
+        </span>
+      </p>
+    </header>
+
+    <!-- Status bar -->
+    <div class="status-bar" aria-live="polite" aria-atomic="true">
+      <span *ngIf="!gameOver" class="attempts-left">
+        {{ remainingAttempts }} attempt{{ remainingAttempts !== 1 ? 's' : '' }} remaining
+      </span>
+    </div>
+
+    <!-- Message toast -->
+    <div
+      class="message-toast"
+      [class.visible]="message"
+      [class.message-error]="messageType === 'error'"
+      [class.message-success]="messageType === 'success'"
+      [class.message-info]="messageType === 'info'"
+      role="alert"
+      aria-live="assertive"
+    >
+      {{ message }}
+    </div>
+
+    <!-- Guess grid -->
+    <section class="grid-section" aria-label="Guess grid">
+      <div class="game-grid">
+        <div
+          *ngFor="let row of rows; let ri = index; trackBy: trackByIndex"
+          class="grid-row"
+          [class.shake]="row.animating"
+          [attr.aria-label]="'Row ' + (ri + 1)"
+        >
+          <div
+            *ngFor="let tile of row.tiles; let ci = index; trackBy: trackByIndex"
+            class="grid-tile"
+            [class.tile-empty]="tile.state === 'empty'"
+            [class.tile-active]="tile.state === 'active'"
+            [class.tile-correct]="tile.state === 'correct' && tile.revealed"
+            [class.tile-present]="tile.state === 'present' && tile.revealed"
+            [class.tile-absent]="tile.state === 'absent' && tile.revealed"
+            [class.tile-pop]="tile.letter && tile.state === 'active'"
+            [class.tile-flip]="tile.revealed"
+            [attr.aria-label]="tile.letter ? tile.letter + ' ' + tile.state : 'Empty'"
+          >
+            {{ tile.letter }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game result panel -->
+    <div
+      *ngIf="gameOver"
+      class="result-panel"
+      [class.result-win]="won"
+      [class.result-loss]="!won"
+      role="status"
+      aria-live="polite"
+    >
+      <div class="result-content">
+        <span class="result-icon" aria-hidden="true">{{ won ? '🎉' : '😔' }}</span>
+        <p class="result-message" *ngIf="won">You got it!</p>
+        <p class="result-message" *ngIf="!won">
+          The word was <strong>{{ targetWord }}</strong>
+        </p>
+        <button
+          class="new-game-btn"
+          type="button"
+          (click)="startNewGame()"
+          aria-label="Start a new game"
+        >
+          New Game
+        </button>
+      </div>
+    </div>
+
+    <!-- Virtual Keyboard -->
+    <section class="keyboard-section" aria-label="Virtual keyboard">
+      <div class="keyboard">
+        <div
+          *ngFor="let row of keyboardRows; trackBy: trackByIndex"
+          class="key-row"
+        >
+          <button
+            *ngFor="let key of row; trackBy: trackByIndex"
+            class="key"
+            [class.key-wide]="key === 'ENTER' || key === '⌫'"
+            [class.key-correct]="getKeyState(key) === 'correct'"
+            [class.key-present]="getKeyState(key) === 'present'"
+            [class.key-absent]="getKeyState(key) === 'absent'"
+            [class.key-unused]="getKeyState(key) === 'unused'"
+            [disabled]="gameOver"
+            [attr.aria-label]="key === '⌫' ? 'Backspace' : key === 'ENTER' ? 'Enter' : key"
+            (click)="onVirtualKey(key)"
+            type="button"
+          >
+            {{ key }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- New game link when game is ongoing -->
+    <div class="game-controls" *ngIf="!gameOver">
+      <button
+        class="restart-btn"
+        type="button"
+        (click)="startNewGame()"
+        aria-label="Restart with a new word"
+      >
+        New Game
+      </button>
+    </div>
+  </main>
+</div>

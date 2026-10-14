@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { HomeComponent } from './pages/home/home.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { WordleComponent } from './pages/games/wordle/wordle.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'gallery', component: GalleryComponent },
+  { path: 'games/wordle', component: WordleComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // You can add other routes here...
 ];

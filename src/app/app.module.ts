@@ -23,6 +23,7 @@ import { GalleryHeroComponent } from './components/gallery-hero/gallery-hero.com
 import { GalleryPhotosComponent } from './components/gallery-photos/gallery-photos.component';
 import { GithubStatsComponent } from './components/github-stats/github-stats.component';
 import { LeetcodeStatsComponent } from './components/leetcode-stats/leetcode-stats.component';
+import { WordleComponent } from './pages/games/wordle/wordle.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { LeetcodeStatsComponent } from './components/leetcode-stats/leetcode-sta
     GalleryPhotosComponent,
     GithubStatsComponent,
     LeetcodeStatsComponent,
+    WordleComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
