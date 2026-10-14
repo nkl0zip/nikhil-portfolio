@@ -208,6 +208,18 @@
   }
 }
 
+.img-13 {
+  @include image-style("/assets/images/springboot.svg");
+}
+
+.img-14 {
+  @include image-style("/assets/images/junit.svg");
+}
+
+.img-15 {
+  @include image-style("/assets/images/docker.svg");
+}
+
 /* ── Projects teaser card ─────────────────────────────────────── */
 .project-container {
   position: relative;
