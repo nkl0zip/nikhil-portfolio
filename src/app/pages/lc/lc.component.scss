@@ -1,0 +1,466 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap");
+
+$font: 'Kodchasan', sans-serif;
+$mobile: 768px;
+
+// ── Page wrapper ────────────────────────────────────────────────────
+.lc-page {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffffff;
+}
+
+.lc-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem) 5rem;
+}
+
+// ── Hero ────────────────────────────────────────────────────────────
+.lc-hero {
+  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lc-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.hero-badge-text {
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffa116;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: $font;
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-family: $font;
+  font-size: clamp(14px, 1.8vw, 17px);
+  color: #a7a7a7;
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.65;
+}
+
+// ── Stats row ───────────────────────────────────────────────────────
+.hero-stats {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid;
+  min-width: 72px;
+}
+
+.stat-num {
+  font-family: $font;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-family: $font;
+  font-size: 11px;
+  font-weight: 700;
+  color: #a7a7a7;
+  margin-top: 3px;
+}
+
+.stat-total {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+  .stat-num { color: #ffffff; }
+}
+
+.stat-easy {
+  background: rgba(0,184,163,0.07);
+  border-color: rgba(0,184,163,0.25);
+  .stat-num { color: #00b8a3; }
+}
+
+.stat-medium {
+  background: rgba(255,161,22,0.07);
+  border-color: rgba(255,161,22,0.25);
+  .stat-num { color: #ffa116; }
+}
+
+.stat-hard {
+  background: rgba(239,71,67,0.07);
+  border-color: rgba(239,71,67,0.25);
+  .stat-num { color: #ef4743; }
+}
+
+// ── Phase pills ─────────────────────────────────────────────────────
+.phase-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.phase-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: var(--phase-bg);
+  border: 1px solid var(--phase-border);
+  cursor: default;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--phase-color);
+  }
+}
+
+.phase-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--phase-color);
+  flex-shrink: 0;
+}
+
+.phase-pill-label {
+  font-family: $font;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--phase-color);
+  white-space: nowrap;
+}
+
+.phase-pill-range {
+  font-family: $font;
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  white-space: nowrap;
+}
+
+// ── Search ──────────────────────────────────────────────────────────
+.search-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0.9rem 0;
+  background: linear-gradient(to bottom, #0f0f0f 60%, transparent);
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  width: 18px;
+  height: 18px;
+  color: #666;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 3rem 0 3rem;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  color: #ffffff;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 400;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &::placeholder { color: #555; }
+
+  &:focus {
+    border-color: rgba(255,161,22,0.4);
+    background: #1d1d1d;
+  }
+
+  &::-webkit-search-cancel-button { display: none; }
+}
+
+.search-clear {
+  position: absolute;
+  right: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.1);
+  }
+
+  svg { width: 14px; height: 14px; }
+}
+
+// ── Search results header ────────────────────────────────────────────
+.search-results {
+  padding-bottom: 2rem;
+}
+
+.results-header {
+  margin-bottom: 1.2rem;
+}
+
+.results-count {
+  font-family: $font;
+  font-size: 14px;
+  font-weight: 700;
+  color: #a7a7a7;
+}
+
+.no-results {
+  font-family: $font;
+  font-size: 15px;
+  color: #555;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+// ── Phase section ────────────────────────────────────────────────────
+.phase-section {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+
+  &:first-of-type { margin-top: 1.5rem; }
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.phase-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.phase-number {
+  font-family: $font;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--phase-color);
+  background: var(--phase-bg);
+  border: 1px solid var(--phase-border);
+  border-radius: 8px;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.phase-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.phase-title {
+  font-family: $font;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.phase-range {
+  font-family: $font;
+  font-size: 13px;
+  font-weight: 400;
+  color: #555;
+}
+
+.phase-count-badge {
+  font-family: $font;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ── Questions grid ───────────────────────────────────────────────────
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 0.75rem;
+}
+
+// ── Question card ────────────────────────────────────────────────────
+.question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(145deg, #1a1a1a, #141414);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  // left accent line — uses difficulty colour
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  &.easy::before   { background: #00b8a3; }
+  &.medium::before { background: #ffa116; }
+  &.hard::before   { background: #ef4743; }
+
+  &:hover {
+    border-color: rgba(255,255,255,0.14);
+    background: linear-gradient(145deg, #1f1f1f, #191919);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+
+    &::before { opacity: 1; }
+    .q-title { color: #ffffff; }
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255,161,22,0.5);
+    outline-offset: 2px;
+  }
+}
+
+.q-num {
+  font-family: $font;
+  font-size: 11px;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 0.04em;
+}
+
+.q-title {
+  font-family: $font;
+  font-size: 14px;
+  font-weight: 700;
+  color: #d4d4d4;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+  flex: 1;
+}
+
+.q-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.q-topic {
+  font-family: $font;
+  font-size: 11px;
+  font-weight: 400;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.q-badge {
+  font-family: $font;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &.badge-easy   { color: #00b8a3; background: rgba(0,184,163,0.1);   border: 1px solid rgba(0,184,163,0.2); }
+  &.badge-medium { color: #ffa116; background: rgba(255,161,22,0.1);  border: 1px solid rgba(255,161,22,0.2); }
+  &.badge-hard   { color: #ef4743; background: rgba(239,71,67,0.1);   border: 1px solid rgba(239,71,67,0.2); }
+}
+
+// ── Mobile ────────────────────────────────────────────────────────
+@media (max-width: $mobile) {
+  .phase-pills { gap: 0.4rem; }
+
+  .phase-pill-label {
+    font-size: 12px;
+  }
+
+  .phase-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .questions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats { gap: 0.5rem; }
+
+  .stat-chip {
+    padding: 0.45rem 0.85rem;
+    min-width: 60px;
+  }
+}

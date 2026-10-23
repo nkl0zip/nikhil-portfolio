@@ -24,6 +24,7 @@ import { GalleryPhotosComponent } from './components/gallery-photos/gallery-phot
 import { GithubStatsComponent } from './components/github-stats/github-stats.component';
 import { LeetcodeStatsComponent } from './components/leetcode-stats/leetcode-stats.component';
 import { WordleComponent } from './pages/games/wordle/wordle.component';
+import { LcComponent } from './pages/lc/lc.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { WordleComponent } from './pages/games/wordle/wordle.component';
     GithubStatsComponent,
     LeetcodeStatsComponent,
     WordleComponent,
+    LcComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

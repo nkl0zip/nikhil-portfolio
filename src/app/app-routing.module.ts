@@ -4,12 +4,14 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { HomeComponent } from './pages/home/home.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { WordleComponent } from './pages/games/wordle/wordle.component';
+import { LcComponent } from './pages/lc/lc.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'games/wordle', component: WordleComponent },
+  { path: 'lc', component: LcComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // You can add other routes here...
 ];
